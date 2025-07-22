@@ -3,7 +3,11 @@ defmodule DndTrackerWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CORSPlug
+
+    plug CORSPlug,
+      origin: ["*"],
+      send_preflight_response?: false,
+      methods: ["OPTIONS", "GET", "POST"]
   end
 
   scope "/api/v1", DndTrackerWeb do
