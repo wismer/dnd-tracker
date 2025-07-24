@@ -10,6 +10,17 @@ defmodule DndTrackerWeb.Router do
       methods: ["OPTIONS", "GET", "POST"]
   end
 
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :put_root_layout, html: {DndTrackerWeb.Layouts, :root}
+  end
+
+  scope "/", DndTrackerWeb do
+    pipe_through :browser
+
+    get "/", HomeController, :home
+  end
+
   scope "/api/v1", DndTrackerWeb do
     pipe_through :api
 
